@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-inventory
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-inventory
+  template:
+    metadata:
+      labels:
+        app: go-inventory
+    spec:
+      containers:
+        - name: go-inventory
+          image: ghcr.io/sagarkpanda/go-inventory:latest
+          ports:
+            - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-inventory
+spec:
+  selector:
+    app: go-inventory
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-orders
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-orders
+  template:
+    metadata:
+      labels:
+        app: python-orders
+    spec:
+      containers:
+        - name: python-orders
+          image: ghcr.io/sagarkpanda/python-orders:latest
+          ports:
+            - containerPort: 8000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-orders
+spec:
+  selector:
+    app: python-orders
+  ports:
+    - port: 8000
+      targetPort: 8000
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-frontend
+  template:
+    metadata:
+      labels:
+        app: node-frontend
+    spec:
+      containers:
+        - name: node-frontend
+          image: ghcr.io/sagarkpanda/node-frontend:latest
+          ports:
+            - containerPort: 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-frontend
+spec:
+  selector:
+    app: node-frontend
+  ports:
+    - port: 3000
+      targetPort: 3000
+  type: ClusterIP
