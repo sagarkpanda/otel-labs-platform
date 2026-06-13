@@ -5,4 +5,4 @@ resources:
   - deployment.yml
   - service.yml
   - configmap.yml
-  - nr-secret.yml
+  # - nr-secret.yml
