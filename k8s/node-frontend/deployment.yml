@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-frontend
+  template:
+    metadata:
+      labels:
+        app: node-frontend
+    spec:
+      containers:
+        - name: node-frontend
+          image: ghcr.io/sagarkpanda/node-frontend:latest
+          ports:
+            - containerPort: 3000

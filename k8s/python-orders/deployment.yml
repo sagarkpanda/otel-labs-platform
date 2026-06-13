@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-orders
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-orders
+  template:
+    metadata:
+      labels:
+        app: python-orders
+    spec:
+      containers:
+        - name: python-orders
+          image: ghcr.io/sagarkpanda/python-orders:latest
+          ports:
+            - containerPort: 8000

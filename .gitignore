@@ -4,3 +4,4 @@
 crash.log
 terraform.tfvars
 nr-secret.yml
+*.txt

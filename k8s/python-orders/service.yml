@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-orders
+spec:
+  selector:
+    app: python-orders
+  ports:
+    - port: 8000
+      targetPort: 8000
+  type: ClusterIP
