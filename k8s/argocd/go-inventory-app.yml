@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: go-inventory
+  namespace: argocd
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/sagarkpanda/otel-labs-platform
+    targetRevision: main
+    path: k8s/go-inventory
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: otel-labs
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
