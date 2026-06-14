@@ -5,6 +5,9 @@ metadata:
   name: go-inventory
   namespace: argocd
 
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
 spec:
   project: default
 

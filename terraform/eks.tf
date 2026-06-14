@@ -73,3 +73,16 @@ resource "aws_eks_node_group" "eksng" {
     }
   )
 }
+
+resource "null_resource" "bootstrap_argocd" {
+
+  depends_on = [
+    aws_eks_node_group.eksng,
+    aws_eks_access_policy_association.cluster_admin
+  ]
+
+  provisioner "local-exec" {
+    interpreter = ["bash", "-c"]
+    command = "./bootstrap.sh || true"
+  }
+}

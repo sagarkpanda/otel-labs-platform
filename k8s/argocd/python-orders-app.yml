@@ -5,6 +5,9 @@ metadata:
   name: python-orders
   namespace: argocd
 
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
 spec:
   project: default
 
