@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: go-inventory
-          image: ghcr.io/sagarkpanda/go-inventory:latest
+          image: ghcr.io/sagarkpanda/go-inventory
           ports:
             - containerPort: 8080

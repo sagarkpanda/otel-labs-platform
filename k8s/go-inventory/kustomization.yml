@@ -4,3 +4,7 @@ kind: Kustomization
 resources:
   - deployment.yml
   - service.yml
+
+images:
+  - name: ghcr.io/sagarkpanda/go-inventory
+    newTag: latest

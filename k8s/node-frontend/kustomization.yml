@@ -5,4 +5,8 @@ resources:
   - deployment.yml
   - service.yml
   - ingress.yml
-  # - httproute.yml
+  - httproute.yml
+
+images:
+  - name: ghcr.io/sagarkpanda/node-frontend
+    newTag: latest

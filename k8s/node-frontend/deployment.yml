@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: node-frontend
-          image: ghcr.io/sagarkpanda/node-frontend:latest
+          image: ghcr.io/sagarkpanda/node-frontend
           ports:
             - containerPort: 3000
