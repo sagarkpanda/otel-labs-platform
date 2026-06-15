@@ -6,7 +6,3 @@ resources:
   - service.yml
   - configmap.yml
   # - nr-secret.yml
-
-images:
-  - name: ghcr.io/sagarkpanda/otel-collector
-    newTag: latest
