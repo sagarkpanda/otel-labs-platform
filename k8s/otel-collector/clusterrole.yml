@@ -5,26 +5,50 @@ metadata:
   name: otel-collector
 
 rules:
-  - apiGroups: [""]
+  - apiGroups:
+      - ""
     resources:
       - nodes
       - nodes/proxy
+      - nodes/stats
       - services
       - endpoints
       - pods
       - namespaces
       - events
+      - resourcequotas
+      - replicationcontrollers
     verbs:
       - get
       - list
       - watch
 
-  - apiGroups: ["apps"]
+  - apiGroups:
+      - apps
     resources:
       - deployments
       - daemonsets
       - replicasets
       - statefulsets
+    verbs:
+      - get
+      - list
+      - watch
+
+  - apiGroups:
+      - batch
+    resources:
+      - jobs
+      - cronjobs
+    verbs:
+      - get
+      - list
+      - watch
+
+  - apiGroups:
+      - autoscaling
+    resources:
+      - horizontalpodautoscalers
     verbs:
       - get
       - list
