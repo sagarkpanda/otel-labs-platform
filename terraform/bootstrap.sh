@@ -26,5 +26,6 @@ helm upgrade --install argocd \
   --set configs.params."server\\.insecure"=true
 
 echo "Applying New Relic secret..."
-  kubectl apply -f k8s/otel-collector/nr-secret.yaml
+  kubectl apply -f k8s/otel-collector/nr-secret.yml
+
 echo "Done."

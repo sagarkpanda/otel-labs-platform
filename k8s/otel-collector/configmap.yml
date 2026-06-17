@@ -1,18 +1,35 @@
 apiVersion: v1
 kind: ConfigMap
+
 metadata:
   name: otel-collector-config
+
 data:
   config.yaml: |
+    extensions:
+      health_check:
+
     receivers:
       otlp:
         protocols:
           grpc:
             endpoint: 0.0.0.0:4317
+
           http:
             endpoint: 0.0.0.0:4318
 
+      kubeletstats:
+        collection_interval: 30s
+        auth_type: serviceAccount
+        endpoint: https://${env:K8S_NODE_NAME}:10250
+        insecure_skip_verify: true
+
+      k8s_cluster:
+        collection_interval: 30s
+
     processors:
+      k8sattributes:
+
       batch:
 
     exporters:
@@ -21,28 +38,53 @@ data:
 
       otlphttp/newrelic:
         endpoint: https://otlp.eu01.nr-data.net
+
         headers:
           api-key: ${env:NEW_RELIC_LICENSE_KEY}
 
     service:
+      extensions:
+        - health_check
+
+      telemetry:
+        logs:
+          level: info
+
       pipelines:
         traces:
-          receivers: [otlp]
-          processors: [batch]
+          receivers:
+            - otlp
+
+          processors:
+            - k8sattributes
+            - batch
+
           exporters:
             - debug
             - otlphttp/newrelic
 
         metrics:
-          receivers: [otlp]
-          processors: [batch]
+          receivers:
+            - otlp
+            - kubeletstats
+            - k8s_cluster
+
+          processors:
+            - k8sattributes
+            - batch
+
           exporters:
             - debug
             - otlphttp/newrelic
 
         logs:
-          receivers: [otlp]
-          processors: [batch]
+          receivers:
+            - otlp
+
+          processors:
+            - k8sattributes
+            - batch
+
           exporters:
             - debug
             - otlphttp/newrelic

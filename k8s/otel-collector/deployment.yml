@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: otel-collector
+
 spec:
   replicas: 1
 
@@ -15,15 +17,22 @@ spec:
         app: otel-collector
 
     spec:
+      serviceAccountName: otel-collector
+
       containers:
         - name: otel-collector
 
-          image: otel/opentelemetry-collector-contrib:latest
+          image: otel/opentelemetry-collector-contrib:0.131.0
 
           args:
             - "--config=/etc/otelcol-contrib/config.yaml"
 
           env:
+            - name: K8S_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+
             - name: NEW_RELIC_LICENSE_KEY
               valueFrom:
                 secretKeyRef:
@@ -36,6 +45,25 @@ spec:
 
             - name: http
               containerPort: 4318
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+
+            limits:
+              cpu: 500m
+              memory: 512Mi
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 13133
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 13133
 
           volumeMounts:
             - name: collector-config

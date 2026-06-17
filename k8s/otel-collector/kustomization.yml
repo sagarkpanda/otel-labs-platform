@@ -6,3 +6,6 @@ resources:
   - service.yml
   - configmap.yml
   # - nr-secret.yml
+  - sa.yml
+  - clusterrole.yml
+  - clusterrolebinding.yml
