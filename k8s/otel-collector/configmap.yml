@@ -29,6 +29,12 @@ data:
         collection_interval: 30s
 
     processors:
+      resource:
+        attributes:
+          - key: k8s.cluster.name
+            value: otel-labs
+            action: upsert
+
       k8sattributes:
 
       batch:
@@ -57,6 +63,7 @@ data:
             - otlp
 
           processors:
+            - resource
             - k8sattributes
             - batch
 
@@ -71,6 +78,7 @@ data:
             - k8s_cluster
 
           processors:
+            - resource
             - k8sattributes
             - batch
 
@@ -83,6 +91,7 @@ data:
             - otlp
 
           processors:
+            - resource
             - k8sattributes
             - batch
 
