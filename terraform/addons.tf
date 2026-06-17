@@ -13,7 +13,7 @@ resource "aws_eks_addon" "kube_proxy" {
   addon_name   = "kube-proxy"
 }
 
-resource "aws_eks_addon" "pod_identity" {
-  cluster_name = aws_eks_cluster.otel_labs.name
-  addon_name   = "eks-pod-identity-agent"
-}
+# resource "aws_eks_addon" "pod_identity" {
+#   cluster_name = aws_eks_cluster.otel_labs.name
+#   addon_name   = "eks-pod-identity-agent"
+# }

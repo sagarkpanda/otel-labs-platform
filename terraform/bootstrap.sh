@@ -2,6 +2,9 @@
 
 set +e
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(dirname "$SCRIPT_DIR")"
+
 echo "Updating kubeconfig..."
 
 aws eks update-kubeconfig \
@@ -25,7 +28,13 @@ helm upgrade --install argocd \
   -n argocd \
   --set configs.params."server\\.insecure"=true
 
+echo "Creating otel-labs namespace..."
+
+kubectl create namespace otel-labs \
+  --dry-run=client -o yaml | kubectl apply -f -
+
 echo "Applying New Relic secret..."
-  kubectl apply -f k8s/otel-collector/nr-secret.yml
+
+kubectl apply -f "$REPO_ROOT/k8s/otel-collector/nr-secret.yml"
 
 echo "Done."
