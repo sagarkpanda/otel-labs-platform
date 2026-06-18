@@ -46,6 +46,10 @@ data:
             value: otel-labs
             action: upsert
 
+          - key: deployment.environment
+            value: lab
+            action: upsert
+
       k8sattributes:
 
       batch:

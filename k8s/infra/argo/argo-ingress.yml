@@ -1,3 +1,5 @@
+#This is the actual ingress resource, which exposes the ArgoCD UI through the Traefik Ingress Controller.
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 

@@ -36,13 +36,13 @@ spec:
             - name: NEW_RELIC_LICENSE_KEY
               valueFrom:
                 secretKeyRef:
-                  name: newrelic-secret
+                  name: otel-backend-secret
                   key: NEW_RELIC_LICENSE_KEY
 
             - name: HONEYCOMB_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: newrelic-secret
+                  name: otel-backend-secret
                   key: HONEYCOMB_API_KEY
 
           ports:

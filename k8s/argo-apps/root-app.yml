@@ -14,7 +14,7 @@ spec:
   source:
     repoURL: https://github.com/sagarkpanda/otel-labs-platform
     targetRevision: main
-    path: k8s/argocd
+    path: k8s/argo-apps
 
   destination:
     server: https://kubernetes.default.svc
