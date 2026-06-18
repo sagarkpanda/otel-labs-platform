@@ -295,8 +295,8 @@ This telemetry is exported together with application telemetry to both observabi
 📖 **Building a Kubernetes Observability Platform with OpenTelemetry**
 
 > ```html
-> <a href="">
->   <img src="" alt="Building a Kubernetes Observability Platform with OpenTelemetry">
+> <a href="sagarpanda.com/blogs/#o11y">
+>   <img src="https://github.com/sagarkpanda/sagarkpanda/blob/main/images/website.png" alt="Building a Kubernetes Observability Platform with OpenTelemetry">
 > </a>
 > ```
 
