@@ -33,8 +33,8 @@ echo "Creating otel-labs namespace..."
 kubectl create namespace otel-labs \
   --dry-run=client -o yaml | kubectl apply -f -
 
-echo "Applying New Relic secret..."
+echo "Applying New Relic and Honeycomb secrets..."
 
-kubectl apply -f "$REPO_ROOT/k8s/otel-collector/nr-secret.yml"
+kubectl apply -f "$REPO_ROOT/k8s/otel-collector/secrets.yml"
 
 echo "Done."

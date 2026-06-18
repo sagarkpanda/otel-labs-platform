@@ -28,6 +28,17 @@ data:
       k8s_cluster:
         collection_interval: 30s
 
+      prometheus:
+        config:
+          scrape_configs:
+            - job_name: kube-state-metrics
+
+              scrape_interval: 30s
+
+              static_configs:
+                - targets:
+                    - kube-state-metrics.kube-system.svc.cluster.local:8080
+
     processors:
       resource:
         attributes:
@@ -48,6 +59,12 @@ data:
 
         headers:
           api-key: ${env:NEW_RELIC_LICENSE_KEY}
+
+      otlphttp/honeycomb:
+        endpoint: https://api.honeycomb.io
+
+        headers:
+          x-honeycomb-team: ${env:HONEYCOMB_API_KEY}
 
     service:
       extensions:
@@ -70,12 +87,14 @@ data:
           exporters:
             - debug
             - otlphttp/newrelic
+            - otlphttp/honeycomb
 
         metrics:
           receivers:
             - otlp
             - kubeletstats
             - k8s_cluster
+            - prometheus
 
           processors:
             - resource
@@ -85,6 +104,7 @@ data:
           exporters:
             - debug
             - otlphttp/newrelic
+            - otlphttp/honeycomb
 
         logs:
           receivers:
@@ -98,3 +118,4 @@ data:
           exporters:
             - debug
             - otlphttp/newrelic
+            - otlphttp/honeycomb

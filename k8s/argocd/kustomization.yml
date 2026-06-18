@@ -7,3 +7,4 @@ resources:
   - python-orders-app.yml
   - go-inventory-app.yml
   - otel-collector-app.yml
+  - kube-state-metrics-app.yml
