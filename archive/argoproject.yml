@@ -1,0 +1,30 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+
+metadata:
+  name: otel-labs
+  namespace: argocd
+
+spec:
+  description: OpenTelemetry Labs Platform
+
+  sourceRepos:
+    - 'https://github.com/sagarkpanda/otel-labs-platform'
+
+  destinations:
+    - namespace: otel-labs
+      server: https://kubernetes.default.svc
+
+    - namespace: argocd
+      server: https://kubernetes.default.svc
+
+    - namespace: traefik
+      server: https://kubernetes.default.svc
+
+    - namespace: kube-system
+      server: https://kubernetes.default.svc
+
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
