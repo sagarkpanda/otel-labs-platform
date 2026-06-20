@@ -1,6 +1,15 @@
-# otel-labs-platform
+## OTel Labs Platform – OpenTelemetry on EKS: End-to-End Observability
 
-Infrastructure and GitOps platform for the **otel-labs** OpenTelemetry demo application.
+Building a Kubernetes observability platform on AWS using Amazon EKS, ArgoCD and New Relic
+
+<a href="https://sagarpanda.com/blogs/monitoring/otel-on-eks/">
+  <img
+    src="https://raw.githubusercontent.com/sagarkpanda/otel-labs/main/images/o11y.png"
+    alt="Building a Kubernetes Observability Platform with OpenTelemetry"
+  />
+</a>
+
+### Infrastructure and GitOps platform for the **otel-labs** OpenTelemetry demo application.
 
 The repository provisions an Amazon EKS cluster using Terraform and deploys platform components such as ArgoCD, Traefik, OpenTelemetry Collector, and Kubernetes observability tooling using GitOps.
 
@@ -294,9 +303,8 @@ This telemetry is exported together with application telemetry to both observabi
 
 📖 **Building a Kubernetes Observability Platform with OpenTelemetry**
 
-<a href="https://sagarpanda.com/blogs/#o11y">
+<a href="https://sagarpanda.com/blogs/monitoring/otel-on-eks/">
   <img
     src="https://raw.githubusercontent.com/sagarkpanda/sagarkpanda/main/images/website.png"
     alt="Building a Kubernetes Observability Platform with OpenTelemetry"
 </a>
-
