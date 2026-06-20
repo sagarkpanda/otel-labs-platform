@@ -33,3 +33,7 @@ output "terraform_caller_arn" {
 output "kubeconfig_command" {
   value = "aws eks update-kubeconfig --region ap-south-1 --name ${aws_eks_cluster.otel_labs.name}"
 }
+
+output "argocd_password_command" {
+  value = "kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d && echo"
+}
