@@ -4,9 +4,9 @@ kind: Application
 metadata:
   name: node-frontend
   namespace: argocd
-  
+
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io/foreground
 
 spec:
   project: default
