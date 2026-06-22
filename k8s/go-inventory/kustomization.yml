@@ -7,4 +7,4 @@ resources:
 
 images:
   - name: ghcr.io/sagarkpanda/go-inventory
-    newTag: "a7b4424"
+    newTag: "0cb7334"
