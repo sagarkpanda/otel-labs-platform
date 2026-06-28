@@ -3,5 +3,5 @@
 *.tfstate.*
 crash.log
 terraform.tfvars
-secret.yml
+secrets.yml
 *.txt
