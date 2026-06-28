@@ -29,3 +29,18 @@ jobs:
           GITLEAKS_ENABLE_SUMMARY: true
           GITLEAKS_ENABLE_COMMENTS: false
           GITLEAKS_ENABLE_UPLOAD_RESULTS: true
+          
+      - name: Generate SARIF
+        run: |
+          docker run --rm \
+            -v "$PWD:/path" \
+            ghcr.io/gitleaks/gitleaks:latest detect \
+            --source=/path \
+            --report-format sarif \
+            --report-path /path/gitleaks.sarif \
+            --exit-code 0
+
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: gitleaks.sarif
