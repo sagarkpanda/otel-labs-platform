@@ -1,0 +1,40 @@
+name: Trivy Config Scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  trivy-config:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Run Trivy config scan
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: config
+          scan-ref: .
+          format: sarif
+          output: trivy-config.sarif
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: 0
+
+      - name: Upload SARIF report
+        if: always()
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: trivy-config.sarif
+          category: trivy-config
