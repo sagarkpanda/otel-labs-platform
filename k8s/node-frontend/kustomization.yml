@@ -9,4 +9,4 @@ resources:
 
 images:
   - name: ghcr.io/sagarkpanda/node-frontend
-    newTag: "b639da1"
+    newTag: "6055a4a"
