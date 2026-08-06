@@ -1,6 +1,6 @@
-## OTel Labs Platform – OpenTelemetry on EKS: End-to-End Observability
+## OTel Labs Platform – Kubernetes Platform, GitOps, Observability & DevSecOps
 
-Building a Kubernetes observability platform on AWS using Amazon EKS, ArgoCD and New Relic
+Building a production-inspired Kubernetes platform on AWS using Amazon EKS, Terraform, ArgoCD, OpenTelemetry and integrated DevSecOps workflows.
 
 <a href="https://sagarpanda.com/blogs/monitoring/otel-on-eks/">
   <img
@@ -298,6 +298,51 @@ kube-state-metrics
 
 This telemetry is exported together with application telemetry to both observability backends.
 
+## DevSecOps
+
+The platform repository integrates infrastructure security scanning into the GitOps workflow and serves as the foundation for Kubernetes security controls.
+
+Current capabilities include:
+
+- **Gitleaks** – Secrets detection
+- **Trivy Kubernetes** – Kubernetes manifest misconfigurations
+- **Trivy Terraform** – Infrastructure as Code (IaC) misconfigurations
+
+Scan results are published to:
+
+- GitHub Security (SARIF)
+- DefectDojo for centralized vulnerability management
+
+Future enhancements include Kubernetes admission control, runtime security and dynamic application security testing.
+
+```mermaid
+flowchart LR
+
+    A["Git Push"]
+    A --> B["GitHub Actions"]
+
+    B --> C["Gitleaks"]
+    B --> D["Trivy Kubernetes"]
+    B --> E["Trivy Terraform"]
+
+    C --> F["GitHub Security"]
+    D --> F
+    E --> F
+
+    C --> G["DefectDojo"]
+    D --> G
+    E --> G
+
+    G -.-> H["Kyverno<br/>Admission Policies"]
+
+    H -.-> I["Amazon EKS"]
+
+    I -. Runtime .-> J["Falco"]
+
+    I -. DAST .-> K["OWASP ZAP"]
+```
+
+This repository focuses on platform security, while the companion otel-labs application repository performs application-focused security scanning such as SAST, container image scanning, and other application security checks.
 
 ## Read More
 
