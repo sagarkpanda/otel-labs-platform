@@ -319,27 +319,29 @@ Future enhancements include Kubernetes admission control, runtime security and d
 flowchart LR
 
     A["Git Push"]
-    A --> B["GitHub Actions"]
+    --> B["GitHub Actions"]
 
-    B --> C["Gitleaks"]
-    B --> D["Trivy Kubernetes"]
-    B --> E["Trivy Terraform"]
+    subgraph CI["CI/CD Security"]
 
-    C --> F["GitHub Security"]
-    D --> F
-    E --> F
+        B --> C["Gitleaks"]
+        B --> D["Trivy Kubernetes"]
+        B --> E["Trivy Terraform"]
 
-    C --> G["DefectDojo"]
-    D --> G
-    E --> G
+        C --> F["GitHub Security"]
+        D --> F
+        E --> F
 
-    G -.-> H["Kyverno<br/>Admission Policies"]
+        C --> G["DefectDojo"]
+        D --> G
+        E --> G
 
-    H -.-> I["Amazon EKS"]
+    end
+
+    H["Kyverno<br/>Admission Policies"]
+    --> I["Amazon EKS"]
 
     I -. Runtime .-> J["Falco"]
-
-    I -. DAST .-> K["OWASP ZAP"]
+    K["OWASP ZAP"] -. DAST .-> I
 ```
 
 This repository focuses on platform security, while the companion otel-labs application repository performs application-focused security scanning such as SAST, container image scanning, and other application security checks.

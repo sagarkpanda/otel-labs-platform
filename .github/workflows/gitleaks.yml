@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "README.md"
+      - '.github/workflows/trivy.yml'
   pull_request:
 
 permissions:
