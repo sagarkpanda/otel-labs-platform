@@ -4,6 +4,14 @@ resource "aws_eks_cluster" "otel_labs" {
 
   version = "1.36"
 
+  enabled_cluster_log_types = [
+    "api",
+    "audit",
+    "authenticator",
+    "controllerManager",
+    "scheduler"
+  ]
+
   vpc_config {
     subnet_ids = [
       aws_subnet.public_a.id,
