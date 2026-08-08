@@ -7,4 +7,4 @@ resources:
 
 images:
   - name: ghcr.io/sagarkpanda/python-orders
-    newTag: "80943ea"
+    newTag: "0da757b"
