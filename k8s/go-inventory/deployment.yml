@@ -15,5 +15,9 @@ spec:
       containers:
         - name: go-inventory
           image: ghcr.io/sagarkpanda/go-inventory
+
+          securityContext:
+            allowPrivilegeEscalation: false
+            
           ports:
             - containerPort: 8080

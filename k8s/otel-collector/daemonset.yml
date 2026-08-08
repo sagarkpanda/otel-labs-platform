@@ -25,6 +25,9 @@ spec:
           args:
             - "--config=/etc/otelcol-contrib/config.yaml"
 
+          securityContext:
+            allowPrivilegeEscalation: false
+
           env:
             - name: K8S_NODE_NAME
               valueFrom:

@@ -15,5 +15,9 @@ spec:
       containers:
         - name: python-orders
           image: ghcr.io/sagarkpanda/python-orders
+
+          securityContext:
+            allowPrivilegeEscalation: false
+            
           ports:
             - containerPort: 8000
