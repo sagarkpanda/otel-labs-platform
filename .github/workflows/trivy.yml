@@ -21,11 +21,22 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      # - name: Scan Kubernetes manifests
+      #   uses: aquasecurity/trivy-action@v0.36.0
+      #   with:
+      #     scan-type: config
+      #     scan-ref: ./k8s
+      #     format: sarif
+      #     output: trivy-k8s.sarif
+      #     severity: HIGH,CRITICAL
+      #     exit-code: 0
+
       - name: Scan Kubernetes manifests
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: config
           scan-ref: ./k8s
+          trivy-config: trivy.yaml
           format: sarif
           output: trivy-k8s.sarif
           severity: HIGH,CRITICAL
