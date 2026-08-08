@@ -3,7 +3,7 @@ name: Gitleaks
 on:
   push:
     branches:
-      - mainn
+      - main
     paths-ignore:
       - "README.md"
       - '.github/workflows/trivy.yml'
