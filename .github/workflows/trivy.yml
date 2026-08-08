@@ -36,7 +36,7 @@ jobs:
         with:
           scan-type: config
           scan-ref: ./k8s
-          trivy-config: trivy.yaml
+          trivy-config: trivy.yml
           format: sarif
           output: trivy-k8s.sarif
           severity: HIGH,CRITICAL
