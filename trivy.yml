@@ -1,3 +1,3 @@
 rego:
   data:
-    - .trivy/config.yaml
+    - .trivy
