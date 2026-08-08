@@ -14,6 +14,16 @@ permissions:
   contents: read
   security-events: write
 
+env:
+  DD_BUILD_ID: ${{ github.run_number }}
+  DD_BRANCH: ${{ github.ref_name }}
+  DD_COMMIT: ${{ github.sha }}
+
+  DD_PRODUCT_TYPE: SP Org
+  DD_PRODUCT: Otel Labs
+  DD_ENGAGEMENT: Platform Sec Engagement
+  DD_ENVIRONMENT: Lab
+
 jobs:
   trivy-k8s:
     runs-on: ubuntu-latest
@@ -64,17 +74,17 @@ jobs:
             -F "scan_type=SARIF" \
             -F "file=@trivy-k8s.sarif" \
             -F "auto_create_context=true" \
-            -F "product_type_name=SP Org" \
-            -F "product_name=Otel Labs" \
-            -F "engagement_name=Platform Sec Engagement" \
+            -F "product_type_name=$DD_PRODUCT_TYPE" \
+            -F "product_name=$DD_PRODUCT" \
+            -F "engagement_name=$DD_ENGAGEMENT" \
             -F "test_title=Trivy Kubernetes" \
             -F "close_old_findings=true" \
             -F "do_not_reactivate=false" \
-            -F "environment=Lab" \
-            -F "build_id=${{ github.run_number }}" \
-            -F "branch_tag=${{ github.ref_name }}" \
-            -F "commit_hash=${{ github.sha }}" \
-            -F "tags=github-actions,trivy,kubernetes,platform,${{ github.ref_name }}"
+            -F "environment=$DD_ENVIRONMENT" \
+            -F "build_id=$DD_BUILD_ID" \
+            -F "branch_tag=$DD_BRANCH" \
+            -F "commit_hash=$DD_COMMIT" \
+            -F "tags=github-actions,trivy,kubernetes,platform,$DD_BRANCH"
 
   trivy-terraform:
     runs-on: ubuntu-latest
@@ -114,14 +124,14 @@ jobs:
             -F "scan_type=SARIF" \
             -F "file=@trivy-terraform.sarif" \
             -F "auto_create_context=true" \
-            -F "product_type_name=SP Org" \
-            -F "product_name=Otel Labs" \
-            -F "engagement_name=Platform Sec Engagement" \
+            -F "product_type_name=$DD_PRODUCT_TYPE" \
+            -F "product_name=$DD_PRODUCT" \
+            -F "engagement_name=$DD_ENGAGEMENT" \
             -F "test_title=Trivy Terraform" \
             -F "close_old_findings=true" \
             -F "do_not_reactivate=false" \
-            -F "environment=Lab" \
-            -F "build_id=${{ github.run_number }}" \
-            -F "branch_tag=${{ github.ref_name }}" \
-            -F "commit_hash=${{ github.sha }}" \
-            -F "tags=github-actions,trivy,terraform,platform,${{ github.ref_name }}"
+            -F "environment=$DD_ENVIRONMENT" \
+            -F "build_id=$DD_BUILD_ID" \
+            -F "branch_tag=$DD_BRANCH" \
+            -F "commit_hash=$DD_COMMIT" \
+            -F "tags=github-actions,trivy,terraform,platform,$DD_BRANCH"
