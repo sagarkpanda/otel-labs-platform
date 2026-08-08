@@ -1,4 +1,18 @@
-ksv0125:
-  trusted_registries:
-    - "ghcr.io/sagarkpanda"
-    - "docker.io/otel/opentelemetry-collector-contrib"
+# ksv0125:
+#   trusted_registries:
+#     - "ghcr.io/sagarkpanda"
+#     - "docker.io/otel/opentelemetry-collector-contrib"
+
+# Trivy configuration file
+severity:
+  - HIGH
+  - CRITICAL
+
+# Reference the config data for customizing checks
+misconfiguration:
+  rego:
+    config:
+      ksv0125:
+        trusted_registries:
+          - "ghcr.io/sagarkpanda"
+          - "docker.io/otel/opentelemetry-collector-contrib"
