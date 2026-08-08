@@ -34,6 +34,8 @@ spec:
             capabilities:
               drop:
                 - ALL
+            seccompProfile:
+              type: RuntimeDefault
 
           env:
             - name: K8S_NODE_NAME

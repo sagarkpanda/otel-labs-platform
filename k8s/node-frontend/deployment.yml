@@ -25,6 +25,8 @@ spec:
             capabilities:
               drop:
                 - ALL
+            seccompProfile:
+              type: RuntimeDefault
 
           ports:
             - containerPort: 3000
