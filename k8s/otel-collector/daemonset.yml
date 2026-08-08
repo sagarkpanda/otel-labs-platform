@@ -27,6 +27,9 @@ spec:
 
           securityContext:
             allowPrivilegeEscalation: false
+            capabilities:
+            drop:
+              - ALL
 
           env:
             - name: K8S_NODE_NAME
