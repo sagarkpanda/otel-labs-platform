@@ -43,27 +43,27 @@ jobs:
           sarif_file: trivy-k8s.sarif
           category: trivy-k8s
 
-      - name: Upload Trivy Kubernetes Results to DefectDojo
-        if: always()
-        run: |
-          curl -X POST \
-            "${{ secrets.DEFECTDOJO_URL }}/api/v2/reimport-scan/" \
-            -H "Authorization: Token ${{ secrets.DEFECTDOJO_API_KEY }}" \
-            -H "Accept: application/json" \
-            -F "scan_type=SARIF" \
-            -F "file=@trivy-k8s.sarif" \
-            -F "auto_create_context=true" \
-            -F "product_type_name=SP Org" \
-            -F "product_name=Otel Labs" \
-            -F "engagement_name=Platform Sec Engagement" \
-            -F "test_title=Trivy Kubernetes" \
-            -F "close_old_findings=true" \
-            -F "do_not_reactivate=false" \
-            -F "environment=Lab" \
-            -F "build_id=${{ github.run_number }}" \
-            -F "branch_tag=${{ github.ref_name }}" \
-            -F "commit_hash=${{ github.sha }}" \
-            -F "tags=github-actions,trivy,kubernetes,platform,${{ github.ref_name }}"
+      # - name: Upload Trivy Kubernetes Results to DefectDojo
+      #   if: always()
+      #   run: |
+      #     curl -X POST \
+      #       "${{ secrets.DEFECTDOJO_URL }}/api/v2/reimport-scan/" \
+      #       -H "Authorization: Token ${{ secrets.DEFECTDOJO_API_KEY }}" \
+      #       -H "Accept: application/json" \
+      #       -F "scan_type=SARIF" \
+      #       -F "file=@trivy-k8s.sarif" \
+      #       -F "auto_create_context=true" \
+      #       -F "product_type_name=SP Org" \
+      #       -F "product_name=Otel Labs" \
+      #       -F "engagement_name=Platform Sec Engagement" \
+      #       -F "test_title=Trivy Kubernetes" \
+      #       -F "close_old_findings=true" \
+      #       -F "do_not_reactivate=false" \
+      #       -F "environment=Lab" \
+      #       -F "build_id=${{ github.run_number }}" \
+      #       -F "branch_tag=${{ github.ref_name }}" \
+      #       -F "commit_hash=${{ github.sha }}" \
+      #       -F "tags=github-actions,trivy,kubernetes,platform,${{ github.ref_name }}"
 
   trivy-terraform:
     runs-on: ubuntu-latest
@@ -93,24 +93,24 @@ jobs:
           sarif_file: trivy-terraform.sarif
           category: trivy-terraform
 
-      - name: Upload Trivy Terraform Results to DefectDojo
-        if: always()
-        run: |
-          curl -X POST \
-            "${{ secrets.DEFECTDOJO_URL }}/api/v2/reimport-scan/" \
-            -H "Authorization: Token ${{ secrets.DEFECTDOJO_API_KEY }}" \
-            -H "Accept: application/json" \
-            -F "scan_type=SARIF" \
-            -F "file=@trivy-terraform.sarif" \
-            -F "auto_create_context=true" \
-            -F "product_type_name=SP Org" \
-            -F "product_name=Otel Labs" \
-            -F "engagement_name=Platform Sec Engagement" \
-            -F "test_title=Trivy Terraform" \
-            -F "close_old_findings=true" \
-            -F "do_not_reactivate=false" \
-            -F "environment=Lab" \
-            -F "build_id=${{ github.run_number }}" \
-            -F "branch_tag=${{ github.ref_name }}" \
-            -F "commit_hash=${{ github.sha }}" \
-            -F "tags=github-actions,trivy,terraform,platform,${{ github.ref_name }}"
+      # - name: Upload Trivy Terraform Results to DefectDojo
+      #   if: always()
+      #   run: |
+      #     curl -X POST \
+      #       "${{ secrets.DEFECTDOJO_URL }}/api/v2/reimport-scan/" \
+      #       -H "Authorization: Token ${{ secrets.DEFECTDOJO_API_KEY }}" \
+      #       -H "Accept: application/json" \
+      #       -F "scan_type=SARIF" \
+      #       -F "file=@trivy-terraform.sarif" \
+      #       -F "auto_create_context=true" \
+      #       -F "product_type_name=SP Org" \
+      #       -F "product_name=Otel Labs" \
+      #       -F "engagement_name=Platform Sec Engagement" \
+      #       -F "test_title=Trivy Terraform" \
+      #       -F "close_old_findings=true" \
+      #       -F "do_not_reactivate=false" \
+      #       -F "environment=Lab" \
+      #       -F "build_id=${{ github.run_number }}" \
+      #       -F "branch_tag=${{ github.ref_name }}" \
+      #       -F "commit_hash=${{ github.sha }}" \
+      #       -F "tags=github-actions,trivy,terraform,platform,${{ github.ref_name }}"
