@@ -19,8 +19,8 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
-            drop:
-              - ALL
+              drop:
+                - ALL
 
           ports:
             - containerPort: 8080
