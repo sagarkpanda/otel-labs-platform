@@ -10,6 +10,7 @@ env:
 
 permissions:
   contents: read
+  issues: write 
 
 jobs:
   zap:
@@ -29,8 +30,8 @@ jobs:
             --show-error \
             --location \
             --max-time 30 \
-            "${DAST_TARGET_URL}" \
-            > /dev/null; then
+            "${DAST_TARGET_URL}" > /dev/null; then
+
             echo "reachable=true" >> "$GITHUB_OUTPUT"
             echo "Application is reachable."
           else
@@ -40,22 +41,11 @@ jobs:
 
       - name: Run OWASP ZAP Full Scan
         if: steps.check_url.outputs.reachable == 'true'
-        run: |
-          mkdir -p zap-report
-
-          docker run --rm \
-            -v "${{ github.workspace }}/zap-report:/zap/wrk/:rw" \
-            ghcr.io/zaproxy/zaproxy:stable \
-            zap-full-scan.py \
-              -t "${DAST_TARGET_URL}" \
-              -r zap-report.html \
-              -J zap-report.json \
-              -w zap-report.md \
-              -I
-
-      - name: Upload ZAP reports
-        if: always() && steps.check_url.outputs.reachable == 'true'
-        uses: actions/upload-artifact@v4
+        uses: zaproxy/action-full-scan@v0.13.0
         with:
-          name: zap-dast-report
-          path: zap-report/
+          target: ${{ env.DAST_TARGET_URL }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          allow_issue_writing: true
+          issue_title: OWASP ZAP DAST Results
+          artifact_name: zap-dast-report
+          fail_action: false
