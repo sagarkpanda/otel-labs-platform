@@ -3,7 +3,7 @@ kind: Kustomization
 
 resources:
   - pod-security-policy.yml
-  - ns-policy.yml
+  # - ns-policy.yml
   - tag-policy.yml
   - resource-policy.yml
   - trusted-registry-policy.yml
