@@ -14,6 +14,11 @@ spec:
         - autogen-require-resource-requests
         - autogen-require-resource-limits
 
+    - policyName: trusted-image-registries #must match the metadata.name in the trsuted registry policy
+      ruleNames:
+        - validate-image-registry
+        - autogen-validate-image-registry
+
   match:
     any:
       - resources:
