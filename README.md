@@ -307,13 +307,15 @@ Current capabilities include:
 - **Gitleaks** – Secrets detection
 - **Trivy Kubernetes** – Kubernetes manifest misconfigurations
 - **Trivy Terraform** – Infrastructure as Code (IaC) misconfigurations
+- **Kyverno** - Kubernetes admission control
+- **OWASP ZAP** - Dynamic application security testing.
 
 Scan results are published to:
 
 - GitHub Security (SARIF)
 - DefectDojo for centralized vulnerability management
 
-Future enhancements include Kubernetes admission control, runtime security and dynamic application security testing.
+Future enhancements : runtime security with Falco
 
 ```mermaid
 flowchart LR
