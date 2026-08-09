@@ -2,41 +2,25 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: namespace-security
-  annotations:
-    policies.kyverno.io/title: Namespace Security
-    policies.kyverno.io/category: Security
-    policies.kyverno.io/severity: high
-    policies.kyverno.io/description: >-
-      Workloads must specify a namespace and must not be deployed
-      to the default namespace.
+
 spec:
   background: true
-  validationFailureAction: Enforce
 
   rules:
-
-    # 1. Namespace must be specified
-    - name: require-namespace
-      match:
-        any:
-          - resources:
-              kinds:
-                - Pod
-      validate:
-        message: "A namespace must be specified for the workload."
-        pattern:
-          metadata:
-            namespace: "?*"
-
-    # 2. Default namespace is not allowed
     - name: disallow-default-namespace
       match:
         any:
           - resources:
               kinds:
                 - Pod
-              namespaces:
-                - default
+
       validate:
-        message: "Deploying workloads to the default namespace is not allowed."
-        deny: {}
+        message: Deploying workloads to the default namespace is not allowed.
+        deny:
+          conditions:
+            any:
+              - key: "{{ request.namespace }}"
+                operator: Equals
+                value: default
+
+  validationFailureAction: Enforce
