@@ -1,0 +1,61 @@
+name: OWASP ZAP DAST
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  DAST_TARGET_URL: http://otel.sagarpanda.com
+
+permissions:
+  contents: read
+
+jobs:
+  zap:
+    name: ZAP Full Scan
+    if: github.event.head_commit.committer.username == 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check application availability
+        id: check_url
+        run: |
+          echo "Checking ${DAST_TARGET_URL}"
+
+          if curl \
+            --fail \
+            --silent \
+            --show-error \
+            --location \
+            --max-time 30 \
+            "${DAST_TARGET_URL}" \
+            > /dev/null; then
+            echo "reachable=true" >> "$GITHUB_OUTPUT"
+            echo "Application is reachable."
+          else
+            echo "reachable=false" >> "$GITHUB_OUTPUT"
+            echo "Application is not reachable. Skipping ZAP."
+          fi
+
+      - name: Run OWASP ZAP Full Scan
+        if: steps.check_url.outputs.reachable == 'true'
+        run: |
+          mkdir -p zap-report
+
+          docker run --rm \
+            -v "${{ github.workspace }}/zap-report:/zap/wrk/:rw" \
+            ghcr.io/zaproxy/zaproxy:stable \
+            zap-full-scan.py \
+              -t "${DAST_TARGET_URL}" \
+              -r zap-report.html \
+              -J zap-report.json \
+              -w zap-report.md \
+              -I
+
+      - name: Upload ZAP reports
+        if: always() && steps.check_url.outputs.reachable == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-dast-report
+          path: zap-report/
