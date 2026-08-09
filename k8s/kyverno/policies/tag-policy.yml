@@ -1,0 +1,41 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: image-tag-security
+  annotations:
+    policies.kyverno.io/title: Image Tag Security
+    policies.kyverno.io/category: Supply Chain Security
+    policies.kyverno.io/severity: high
+spec:
+  background: true
+  validationFailureAction: Enforce
+
+  rules:
+
+    # 1. An explicit image tag is required
+    - name: require-image-tag
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "Container images must use an explicit image tag."
+        pattern:
+          spec:
+            containers:
+              - image: "*:*"
+
+    # 2. The latest tag is not allowed
+    - name: disallow-latest-tag
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "The latest image tag is not allowed."
+        pattern:
+          spec:
+            containers:
+              - image: "!*:latest"

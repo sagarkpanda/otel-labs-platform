@@ -1,0 +1,27 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: trusted-image-registries
+  annotations:
+    policies.kyverno.io/title: Restrict Image Registries
+    policies.kyverno.io/category: Supply Chain Security
+    policies.kyverno.io/severity: high
+    policies.kyverno.io/description: >-
+      Images must be pulled only from approved container registries.
+spec:
+  background: true
+  validationFailureAction: Enforce
+
+  rules:
+    - name: validate-image-registry
+      match:
+        any:
+          - resources:
+              kinds:
+                - Pod
+      validate:
+        message: "Images must come from an approved registry: ghcr.io or docker.io."
+        pattern:
+          spec:
+            containers:
+              - image: "ghcr.io/sagarkpanda/* | docker.io/otel/opentelemetry-collector-contrib:*"

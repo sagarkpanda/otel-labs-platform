@@ -28,6 +28,17 @@ helm upgrade --install argocd \
   -n argocd \
   --set configs.params."server\\.insecure"=true
 
+echo "Adding Kyverno Helm repo..."
+
+helm repo add kyverno https://kyverno.github.io/kyverno/
+helm repo update
+
+echo "Installing Kyverno..."
+helm upgrade --install kyverno \
+  kyverno/kyverno \
+  --namespace kyverno \
+  --create-namespace
+
 echo "Creating otel-labs namespace..."
 
 kubectl create namespace otel-labs \
