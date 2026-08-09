@@ -10,7 +10,7 @@ env:
 
 permissions:
   contents: read
-  issues: write 
+  # issues: write
 
 jobs:
   zap:
@@ -44,8 +44,8 @@ jobs:
         uses: zaproxy/action-full-scan@v0.13.0
         with:
           target: ${{ env.DAST_TARGET_URL }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          allow_issue_writing: true
-          issue_title: OWASP ZAP DAST Results
-          artifact_name: zap-dast-report
+          # token: ${{ secrets.GITHUB_TOKEN }}
+          # allow_issue_writing: true
+          # issue_title: OWASP ZAP DAST Results
+          # artifact_name: zap-dast-report
           fail_action: false
