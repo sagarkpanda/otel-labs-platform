@@ -4,14 +4,22 @@ metadata:
   name: go-inventory
 spec:
   replicas: 1
+
   selector:
     matchLabels:
       app: go-inventory
+
   template:
     metadata:
       labels:
         app: go-inventory
+
     spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+
       containers:
         - name: go-inventory
           image: ghcr.io/sagarkpanda/go-inventory
@@ -25,8 +33,14 @@ spec:
             capabilities:
               drop:
                 - ALL
-            seccompProfile:
-              type: RuntimeDefault
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
 
           ports:
             - containerPort: 8080

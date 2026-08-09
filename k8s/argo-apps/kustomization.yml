@@ -8,3 +8,4 @@ resources:
   - go-inventory-app.yml
   - otel-collector-app.yml
   - kube-state-metrics-app.yml
+  - kyverno-policy.yml

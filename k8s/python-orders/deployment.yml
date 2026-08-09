@@ -4,14 +4,22 @@ metadata:
   name: python-orders
 spec:
   replicas: 1
+
   selector:
     matchLabels:
       app: python-orders
+
   template:
     metadata:
       labels:
         app: python-orders
+
     spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+
       containers:
         - name: python-orders
           image: ghcr.io/sagarkpanda/python-orders
@@ -25,8 +33,14 @@ spec:
             capabilities:
               drop:
                 - ALL
-            seccompProfile:
-              type: RuntimeDefault
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
 
           ports:
             - containerPort: 8000

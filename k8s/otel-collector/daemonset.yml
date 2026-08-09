@@ -17,10 +17,15 @@ spec:
     spec:
       serviceAccountName: otel-collector
 
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+
       containers:
         - name: otel-collector
 
-          image: otel/opentelemetry-collector-contrib:0.131.0
+          image: docker.io/otel/opentelemetry-collector-contrib:0.131.0
 
           args:
             - "--config=/etc/otelcol-contrib/config.yaml"
@@ -34,8 +39,6 @@ spec:
             capabilities:
               drop:
                 - ALL
-            seccompProfile:
-              type: RuntimeDefault
 
           env:
             - name: K8S_NODE_NAME
@@ -66,7 +69,6 @@ spec:
             requests:
               cpu: 100m
               memory: 256Mi
-
             limits:
               cpu: 500m
               memory: 512Mi

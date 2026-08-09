@@ -1,0 +1,33 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: argocd-workloads
+  namespace: argocd
+
+spec:
+  exceptions:
+    - policyName: pod-security-baseline
+      ruleNames:
+        - "*"
+
+    - policyName: namespace-security
+      ruleNames:
+        - "*"
+
+    - policyName: resource-security
+      ruleNames:
+        - "*"
+
+    - policyName: image-tag-security
+      ruleNames:
+        - "*"
+
+    - policyName: trusted-image-registries
+      ruleNames:
+        - "*"
+
+  match:
+    any:
+      - resources:
+          namespaces:
+            - argocd

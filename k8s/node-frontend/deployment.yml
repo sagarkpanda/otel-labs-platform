@@ -4,14 +4,22 @@ metadata:
   name: node-frontend
 spec:
   replicas: 1
+
   selector:
     matchLabels:
       app: node-frontend
+
   template:
     metadata:
       labels:
         app: node-frontend
+
     spec:
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+
       containers:
         - name: node-frontend
           image: ghcr.io/sagarkpanda/node-frontend
@@ -25,8 +33,14 @@ spec:
             capabilities:
               drop:
                 - ALL
-            seccompProfile:
-              type: RuntimeDefault
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
 
           ports:
             - containerPort: 3000
