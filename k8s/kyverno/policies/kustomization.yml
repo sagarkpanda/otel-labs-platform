@@ -7,3 +7,4 @@ resources:
   - tag-policy.yml
   - resource-policy.yml
   - trusted-registry-policy.yml
+  - traefik-pod-exception-policy.yml

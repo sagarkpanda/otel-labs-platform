@@ -1,0 +1,27 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+
+metadata:
+  name: traefik-resource-exception
+  namespace: argocd
+
+spec:
+  exceptions:
+    - policyName: resource-security
+      ruleNames:
+        - require-resource-requests
+        - require-resource-limits
+        - autogen-require-resource-requests
+        - autogen-require-resource-limits
+
+  match:
+    any:
+      - resources:
+          kinds:
+            - Deployment
+            - Pod
+          namespaces:
+            - traefik
+          names:
+            - traefik
+            - traefik-*
