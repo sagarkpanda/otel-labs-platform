@@ -20,6 +20,7 @@ env:
 
 permissions:
   contents: read
+  issues: write
 
 jobs:
   zap:
@@ -58,7 +59,9 @@ jobs:
           target: ${{ env.DAST_TARGET_URL }}
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-I -x report_xml.xml'
-          allow_issue_writing: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          allow_issue_writing: true
+          issue_title: OWASP ZAP DAST Results
           artifact_name: 'zap-dast-report'
           fail_action: false
 
