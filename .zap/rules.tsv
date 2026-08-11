@@ -1,17 +1,19 @@
-# ZAP rules not applicable to OTel Labs technology stack
-# Format:
-# RuleID	IGNORE	(Rule Name)
+# ZAP Rules Configuration for OTel Labs
+# Rules not applicable to Node.js + Python + Go stack are disabled
+# Format: RuleID<tab>RuleName<tab>Enabled
 
-# Java
-40042	IGNORE	(Spring Actuator Information Leak)
-40045	IGNORE	(Spring4Shell)
-90002	IGNORE	(Java Serialization Object)
+40042	Spring Actuator Information Leak	false
+40045	Spring4Shell	false
+90002	Java Serialization Object	false
+10032	Old Asp.Net Version in Use	false
+10094	ASP.NET ViewState Disclosure	false
+10095	ASP.NET ViewState Integrity	false
+90019	Server Side Code Injection - PHP	false
+90019	Server Side Code Injection - ASP	false
 
-# ASP.NET
-10032-3	IGNORE	(Old Asp.Net Version in Use)
-10094-1	IGNORE	(ASP.NET ViewState Disclosure)
-10094-2	IGNORE	(ASP.NET ViewState Integrity)
-
-# PHP / ASP server-side code injection
-90019-1	IGNORE	(Server Side Code Injection - PHP Code Injection)
-90019-2	IGNORE	(Server Side Code Injection - ASP Code Injection)
+10010	Cookie Without Secure Flag	true
+10011	Cookie Without HttpOnly Flag	true
+10003	Vulnerable JS Library	true
+10043	Swagger UI Secret Detector	true
+10009	In Page Banner Information Leak	true
+10000	Directory Browsing	true
