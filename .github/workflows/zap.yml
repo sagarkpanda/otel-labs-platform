@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      
+
   workflow_dispatch:
 
 env:
@@ -24,7 +24,7 @@ permissions:
 jobs:
   zap:
     name: ZAP Full Scan
-    if: github.event.head_commit.committer.username == 'github-actions[bot]'
+    # if: github.event.head_commit.committer.username == 'github-actions[bot]'
     runs-on: ubuntu-latest
 
     steps:
