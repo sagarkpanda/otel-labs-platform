@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+      
+  workflow_dispatch:
 
 env:
   DAST_TARGET_URL: http://otel.sagarpanda.com
@@ -59,7 +61,7 @@ jobs:
           allow_issue_writing: false
           artifact_name: 'zap-dast-report'
           fail_action: false
-          
+
       - name: Upload ZAP Results to DefectDojo
         if: steps.check_url.outputs.reachable == 'true'
         run: |
