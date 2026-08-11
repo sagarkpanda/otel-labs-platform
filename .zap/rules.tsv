@@ -1,0 +1,17 @@
+# ZAP rules not applicable to OTel Labs technology stack
+# Format:
+# RuleID	IGNORE	(Rule Name)
+
+# Java
+40042	IGNORE	(Spring Actuator Information Leak)
+40045	IGNORE	(Spring4Shell)
+90002	IGNORE	(Java Serialization Object)
+
+# ASP.NET
+10032-3	IGNORE	(Old Asp.Net Version in Use)
+10094-1	IGNORE	(ASP.NET ViewState Disclosure)
+10094-2	IGNORE	(ASP.NET ViewState Integrity)
+
+# PHP / ASP server-side code injection
+90019-1	IGNORE	(Server Side Code Injection - PHP Code Injection)
+90019-2	IGNORE	(Server Side Code Injection - ASP Code Injection)

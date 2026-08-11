@@ -8,9 +8,16 @@ on:
 env:
   DAST_TARGET_URL: http://otel.sagarpanda.com
 
+  DD_PRODUCT_TYPE: SP Org
+  DD_PRODUCT: Otel Labs
+  DD_ENGAGEMENT: App Security Engagement
+  DD_ENVIRONMENT: Lab
+  DD_BUILD_ID: ${{ github.run_number }}
+  DD_BRANCH: ${{ github.ref_name }}
+  DD_COMMIT: ${{ github.sha }}
+
 permissions:
   contents: read
-  # issues: write
 
 jobs:
   zap:
@@ -19,6 +26,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Check application availability
         id: check_url
         run: |
@@ -44,8 +54,30 @@ jobs:
         uses: zaproxy/action-full-scan@v0.13.0
         with:
           target: ${{ env.DAST_TARGET_URL }}
-          # token: ${{ secrets.GITHUB_TOKEN }}
-          # allow_issue_writing: true
-          # issue_title: OWASP ZAP DAST Results
-          # artifact_name: zap-dast-report
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-I -x report_xml.xml'
+          allow_issue_writing: false
+          artifact_name: 'zap-dast-report'
           fail_action: false
+          
+      - name: Upload ZAP Results to DefectDojo
+        if: steps.check_url.outputs.reachable == 'true'
+        run: |
+          curl -X POST \
+            "${{ secrets.DEFECTDOJO_URL }}/api/v2/reimport-scan/" \
+            -H "Authorization: Token ${{ secrets.DEFECTDOJO_API_KEY }}" \
+            -H "Accept: application/json" \
+            -F "scan_type=ZAP Scan" \
+            -F "file=@report_xml.xml" \
+            -F "auto_create_context=true" \
+            -F "product_type_name=$DD_PRODUCT_TYPE" \
+            -F "product_name=$DD_PRODUCT" \
+            -F "engagement_name=$DD_ENGAGEMENT" \
+            -F "test_title=OWASP ZAP DAST" \
+            -F "close_old_findings=true" \
+            -F "do_not_reactivate=false" \
+            -F "environment=$DD_ENVIRONMENT" \
+            -F "build_id=$DD_BUILD_ID" \
+            -F "branch_tag=$DD_BRANCH" \
+            -F "commit_hash=$DD_COMMIT" \
+            -F "tags=github-actions,zap,dast,$DD_BRANCH"
