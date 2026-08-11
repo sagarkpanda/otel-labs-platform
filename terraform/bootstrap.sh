@@ -52,6 +52,7 @@ echo -e "${BLUE}${BOLD}==> Installing ArgoCD...${NC}"
 helm upgrade --install argocd \
   argo/argo-cd \
   -n argocd \
+  --timeout 8m \
   --set configs.params."server\.insecure"=true
 
 echo -e "${GREEN}✓ ArgoCD installation completed${NC}"
@@ -62,6 +63,7 @@ helm upgrade --install kyverno \
   kyverno/kyverno \
   --namespace kyverno \
   --create-namespace \
+  --timeout 8m \
   --set features.policyExceptions.enabled=true \
   --set features.policyExceptions.namespace=argocd
 

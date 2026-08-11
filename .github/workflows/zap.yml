@@ -25,7 +25,7 @@ permissions:
 jobs:
   zap:
     name: ZAP Full Scan
-    # if: github.event.head_commit.committer.username == 'github-actions[bot]'
+    if: github.event.head_commit.committer.username == 'github-actions[bot]'
     runs-on: ubuntu-latest
 
     steps:
@@ -57,11 +57,11 @@ jobs:
         uses: zaproxy/action-full-scan@v0.13.0
         with:
           target: ${{ env.DAST_TARGET_URL }}
+          # token: ${{ secrets.GITHUB_TOKEN }}
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-I -x report_xml.xml'
-          token: ${{ secrets.GITHUB_TOKEN }}
-          allow_issue_writing: true
-          issue_title: OWASP ZAP DAST Results
+          # allow_issue_writing: true
+          # issue_title: OWASP ZAP DAST Results
           artifact_name: 'zap-dast-report'
           fail_action: false
 
