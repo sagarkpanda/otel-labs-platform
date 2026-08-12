@@ -1,0 +1,24 @@
+customRules:
+  custom-rules.yaml: |-
+    - rule: Kubernetes Exec Shell
+      desc: Detect an interactive shell started inside a container
+      condition: >
+        spawned_process
+        and container
+        and shell_procs
+        and proc.tty != 0
+      output: >
+        Interactive shell started in container
+        | user=%user.name
+        user_uid=%user.uid
+        process=%proc.name
+        proc_exepath=%proc.exepath
+        parent=%proc.pname
+        command=%proc.cmdline
+        terminal=%proc.tty
+        container_name=%container.name
+        container_image=%container.image.repository
+        k8s_ns=%k8s.ns.name
+        k8s_pod_name=%k8s.pod.name
+      priority: INFORMATIONAL
+      tags: [container, k8s, shell, kubectl, execution]
