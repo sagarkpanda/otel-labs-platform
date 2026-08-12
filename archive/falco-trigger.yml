@@ -1,20 +1,6 @@
-# Falco validation workload.
-#
-# Purpose:
-# This Deployment is used only to trigger a simple process-execution event
-# inside a Kubernetes container so the custom Falco rule can be validated.
-#
-# It is not part of the main application/platform workloads and is kept
-# under archive/ for occasional Falco testing.
-#
-# The image is hosted in GHCR so it satisfies the project's trusted-image
-# registry policy.
-#
-# Kyverno security policies are intentionally satisfied by this workload;
-# no special privileges or security-policy bypass are required.
-
 apiVersion: apps/v1
 kind: Deployment
+
 metadata:
   name: falco-trigger
   namespace: falco
@@ -23,11 +9,14 @@ metadata:
     purpose: falco-validation
     component: security-testing
     lifecycle: archived
+
 spec:
   replicas: 1
+
   selector:
     matchLabels:
       app: falco-trigger
+
   template:
     metadata:
       labels:
@@ -35,9 +24,11 @@ spec:
         purpose: falco-validation
         component: security-testing
         lifecycle: archived
+
     spec:
       securityContext:
         runAsNonRoot: true
+        runAsUser: 1000
         seccompProfile:
           type: RuntimeDefault
 
@@ -64,6 +55,7 @@ spec:
             - /bin/sh
             - -c
             - |
+              whoami
               while true; do
                 sleep 3600
               done
