@@ -60,7 +60,7 @@ jobs:
           # token: ${{ secrets.GITHUB_TOKEN }}
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-I -x report_xml.xml'
-          # allow_issue_writing: true
+          allow_issue_writing: false
           # issue_title: OWASP ZAP DAST Results
           artifact_name: 'zap-dast-report'
           fail_action: false
