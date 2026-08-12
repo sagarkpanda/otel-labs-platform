@@ -42,6 +42,9 @@ helm repo add argo https://argoproj.github.io/argo-helm
 echo -e "${YELLOW}2. Adding Kyverno Helm repository...${NC}"
 helm repo add kyverno https://kyverno.github.io/kyverno/
 
+echo -e "${YELLOW}3. Adding Falco Helm repository...${NC}"
+helm repo add falcosecurity https://falcosecurity.github.io/charts
+
 echo -e "${YELLOW}Updating Helm repositories...${NC}"
 helm repo update
 
@@ -68,6 +71,20 @@ helm upgrade --install kyverno \
   --set features.policyExceptions.namespace=argocd
 
 echo -e "${GREEN}✓ Kyverno installation completed${NC}"
+echo
+
+echo -e "${BLUE}${BOLD}==> Installing Falco...${NC}"
+
+helm upgrade --install falco \
+  falcosecurity/falco \
+  --namespace falco \
+  --create-namespace \
+  --timeout 8m \
+  --set tty=true \
+  --set falcosidekick.enabled=true \
+  --set falcosidekick.webui.enabled=true
+
+echo -e "${GREEN}✓ Falco installation completed${NC}"
 echo
 
 echo -e "${BLUE}${BOLD}==> Creating otel-labs namespace...${NC}"
