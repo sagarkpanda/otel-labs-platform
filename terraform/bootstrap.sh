@@ -82,7 +82,7 @@ helm upgrade --install falco \
   --timeout 8m \
   --set tty=true \
   --set falcosidekick.enabled=true \
-  --set falcosidekick.webui.enabled=true
+  -f falco/custom-rules.yml
 
 echo -e "${GREEN}✓ Falco installation completed${NC}"
 echo
