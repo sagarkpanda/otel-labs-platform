@@ -7,23 +7,33 @@ spec:
   exceptions:
     - policyName: pod-security-baseline
       ruleNames:
-        - disallow-privilege-escalation
-        - require-drop-all-capabilities
-        - require-read-only-root-filesystem
-        - require-run-as-non-root
-        - require-runtime-default-seccomp
+        - autogen-disallow-privilege-escalation
+        - autogen-require-drop-all-capabilities
+        - autogen-require-read-only-root-filesystem
+        - autogen-require-run-as-non-root
+        - autogen-require-runtime-default-seccomp
 
     - policyName: resource-security
       ruleNames:
-        - require-resource-limits
-        - require-resource-requests
+        - autogen-require-resource-limits
+        - autogen-require-resource-requests
 
   match:
     any:
+      # Falco DaemonSet
       - resources:
           kinds:
-            - Pod
+            - DaemonSet
           namespaces:
             - falco
           names:
-            - falco-*
+            - falco
+
+      # Falco Sidekick Deployment
+      - resources:
+          kinds:
+            - Deployment
+          namespaces:
+            - falco
+          names:
+            - falco-falcosidekick
