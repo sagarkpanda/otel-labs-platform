@@ -24,4 +24,4 @@ spec:
         pattern:
           spec:
             containers:
-              - image: "ghcr.io/sagarkpanda/* | docker.io/otel/opentelemetry-collector-contrib:*"
+              - image: "ghcr.io/sagarkpanda/* | docker.io/otel/opentelemetry-collector-contrib:* | docker.io/falcosecurity/*"
