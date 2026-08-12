@@ -1,0 +1,47 @@
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: falco-pod-security-exception
+  namespace: argocd
+spec:
+  exceptions:
+    - policyName: pod-security-baseline
+      ruleNames:
+        - require-run-as-non-root
+        - disallow-privilege-escalation
+        - require-drop-all-capabilities
+        - require-runtime-default-seccomp
+        - require-read-only-root-filesystem
+
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          namespaces:
+            - falco
+          names:
+            - falco-*
+
+---
+apiVersion: kyverno.io/v2
+kind: PolicyException
+metadata:
+  name: falco-resource-security-exception
+  namespace: argocd
+spec:
+  exceptions:
+    - policyName: resource-security
+      ruleNames:
+        - require-resource-requests
+        - require-resource-limits
+
+  match:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          namespaces:
+            - falco
+          names:
+            - falco-*

@@ -8,3 +8,4 @@ resources:
   - resource-policy.yml
   - trusted-registry-policy.yml
   - traefik-pod-exception-policy.yml
+  - falco-policy-exception.yml
