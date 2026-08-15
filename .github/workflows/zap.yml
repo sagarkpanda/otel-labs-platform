@@ -12,7 +12,7 @@ env:
 
   DD_PRODUCT_TYPE: SP Org
   DD_PRODUCT: Otel Labs
-  DD_ENGAGEMENT: App Security Engagement
+  DD_ENGAGEMENT: App Sec Engagement
   DD_ENVIRONMENT: Lab
   DD_BUILD_ID: ${{ github.run_number }}
   DD_BRANCH: ${{ github.ref_name }}
